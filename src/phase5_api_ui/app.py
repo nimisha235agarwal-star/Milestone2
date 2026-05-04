@@ -22,13 +22,14 @@ app.add_middleware(
 
 # Initialize the RAG Pipeline lazily or with error handling
 rag = None
+startup_error = None
 try:
     print("Initializing RAG Pipeline...")
     rag = MutualFundRAG()
     print("RAG Pipeline initialized successfully.")
 except Exception as e:
     print(f"CRITICAL ERROR: Failed to initialize RAG Pipeline: {e}")
-    # We don't raise here so the server can at least start and show logs
+    startup_error = str(e)
 
 from typing import Optional
 
@@ -55,10 +56,11 @@ async def chat_endpoint(request: ChatRequest):
     try:
         if rag is None:
             return ChatResponse(
-                reply="I'm having trouble connecting to my database. Please ensure API keys are configured in the Render dashboard.", 
+                reply=f"RAG Pipeline Error: {startup_error}. Please check your keys on Render.", 
                 thread_id=thread_id
             )
             
+        print(f"  -> Vectorstore connected.")
         # Run the synchronous RAG pipeline in a separate thread to avoid blocking the event loop.
         answer = await anyio.to_thread.run_sync(rag.answer_query, request.message, thread_id)
         return ChatResponse(reply=answer, thread_id=thread_id)

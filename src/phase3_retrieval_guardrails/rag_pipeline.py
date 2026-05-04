@@ -70,6 +70,7 @@ class MutualFundRAG:
             collection_name="groww_mutual_funds",
             embedding_function=self.embedding_model
         )
+        print("  -> Vectorstore connected.")
 
         # ── Groq LLM ──
         print(f"  -> Initializing Groq LLM (llama-3.3-70b-versatile)...")
