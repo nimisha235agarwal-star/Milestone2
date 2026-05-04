@@ -6,6 +6,9 @@ on:
     - cron: '45 3 * * *'
   workflow_dispatch: # Allows manual triggering from the GitHub UI
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   ingest-pipeline:
     runs-on: ubuntu-latest
@@ -14,7 +17,6 @@ jobs:
       CHROMA_API_KEY: ${{ secrets.CHROMA_API_KEY }}
       CHROMA_TENANT: ${{ secrets.CHROMA_TENANT }}
       CHROMA_DATABASE: ${{ secrets.CHROMA_DATABASE }}
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       # ─── Setup ───────────────────────────────────────────
