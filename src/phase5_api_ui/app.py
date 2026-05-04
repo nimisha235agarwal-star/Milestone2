@@ -20,9 +20,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize the RAG Pipeline
-# Ensure GROQ_API_KEY and Chroma Cloud keys are in .env
-rag = MutualFundRAG()
+# Initialize the RAG Pipeline lazily or with error handling
+rag = None
+try:
+    print("Initializing RAG Pipeline...")
+    rag = MutualFundRAG()
+    print("RAG Pipeline initialized successfully.")
+except Exception as e:
+    print(f"CRITICAL ERROR: Failed to initialize RAG Pipeline: {e}")
+    # We don't raise here so the server can at least start and show logs
 
 from typing import Optional
 
