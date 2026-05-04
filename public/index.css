@@ -1,0 +1,401 @@
+:root {
+    --primary: #00D09C;
+    --primary-dark: #00b084;
+    --text-dark: #44475B;
+    --text-muted: #7C7E8C;
+    --bg-light: #FFFFFF;
+    --border: #EBEDF2;
+    --shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Navbar Styling */
+.navbar {
+    height: 70px;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.groww-logo-img {
+    height: 32px;
+    width: auto;
+}
+
+.logo-text {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    color: #000000;
+    margin-left: 8px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 15px;
+    transition: color 0.2s;
+}
+
+.nav-links a.active, .nav-links a:hover {
+    color: var(--primary);
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.search-bar {
+    background: #F8F9FA;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-bar input {
+    background: none;
+    border: none;
+    outline: none;
+    width: 200px;
+    font-size: 14px;
+}
+
+.btn-login {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Layout */
+.main-layout {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    gap: 40px;
+    min-height: calc(100vh - 150px);
+}
+
+/* Hero Section */
+.hero-section {
+    flex: 1.2;
+    padding-top: 40px;
+}
+
+.hero-content h1 {
+    font-size: 56px;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    letter-spacing: -2px;
+}
+
+.hero-content h1 span {
+    color: var(--primary);
+}
+
+.hero-content p {
+    font-size: 18px;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+}
+
+.hero-img {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 20px;
+}
+
+/* Chat Sidebar */
+.chat-sidebar {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.chat-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 550px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.chat-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #F8F9FA;
+}
+
+.bot-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bot-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--primary);
+    border-radius: 50%;
+}
+
+.chat-window {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background-image: radial-gradient(#EBEDF2 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.message {
+    margin-bottom: 15px;
+    max-width: 85%;
+}
+
+.message.user {
+    align-self: flex-end;
+}
+
+.message-content {
+    padding: 12px 16px;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.message.user .message-content {
+    background: var(--primary);
+    color: white;
+    border-bottom-right-radius: 2px;
+}
+
+.message.bot .message-content {
+    background: white;
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 2px;
+}
+
+.feedback-thumbs {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+    padding-left: 5px;
+}
+
+.feedback-thumbs button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.2s;
+    opacity: 0.6;
+}
+
+.feedback-thumbs button:hover {
+    background: #F0F2F5;
+    opacity: 1;
+}
+
+.feedback-thanks {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+    padding-left: 5px;
+    margin-top: 4px;
+}
+
+.suggestions-container {
+    display: flex;
+    gap: 8px;
+    padding: 10px 20px;
+    overflow-x: auto;
+}
+
+.suggestions-container button {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 6px 15px;
+    border-radius: 99px;
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.suggestions-container button:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.input-area {
+    padding: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.input-container {
+    display: flex;
+    background: #F8F9FA;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.input-container input {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 12px 15px;
+    outline: none;
+    font-size: 14px;
+}
+
+.input-container button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.disclaimer {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 10px;
+}
+
+.thread-history h4 {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.thread-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.thread-item {
+    background: #F8F9FA;
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-clear {
+    background: none;
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.btn-clear:hover {
+    background: #FFF0F0;
+    color: #FF4D4F;
+    border-color: #FF4D4F;
+}
+
+.thread-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.thread-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 12px;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.thread-actions button:hover {
+    background: #E8ECEF;
+    color: var(--primary);
+}
+
+.thread-actions .delete-btn:hover {
+    color: #FF4D4F;
+    background: #FFF0F0;
+}
+
+.thread-name-text {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

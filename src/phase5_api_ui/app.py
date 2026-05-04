@@ -57,11 +57,11 @@ from fastapi.responses import HTMLResponse
 
 @app.get("/", response_class=HTMLResponse)
 async def get_index():
-    with open("src/phase5_api_ui/static/index.html", "r") as f:
+    with open("public/index.html", "r") as f:
         return f.read()
 
 # Serve static files (CSS/JS)
-app.mount("/static", StaticFiles(directory="src/phase5_api_ui/static"), name="static")
+app.mount("/static", StaticFiles(directory="public"), name="static")
 
 if __name__ == "__main__":
     import uvicorn
