@@ -1,0 +1,19 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# Data & Database
+data/raw_html/
+data/ingestion_logs.txt
+chroma_db/
+*.sqlite
+
+# Environment Variables
+.env
+
+# OS specific
+.DS_Store
+Thumbs.db
