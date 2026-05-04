@@ -214,6 +214,9 @@
             const msg = userInput.value.trim();
             if (!msg) return;
 
+            // Remove feedback thumbs from previous messages
+            document.querySelectorAll('.feedback-thumbs').forEach(el => el.remove());
+
             addMessage(msg, 'user');
             userInput.value = '';
 
