@@ -3,7 +3,7 @@ import uuid
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from src.phase3_retrieval_guardrails.rag_pipeline import MutualFundRAG
@@ -61,9 +61,12 @@ async def chat_endpoint(request: ChatRequest):
         print(f"Error in chat [Thread {thread_id}]: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-# Serve static files from 'public' at the root
-# This ensures that index.css, images, etc. are found correctly
-app.mount("/", StaticFiles(directory="public", html=True), name="static")
+@app.get("/")
+async def serve_index():
+    return FileResponse("public/index.html")
+
+# Serve other static files (CSS, JS, Images)
+app.mount("/", StaticFiles(directory="public"), name="static")
 
 if __name__ == "__main__":
     import uvicorn
