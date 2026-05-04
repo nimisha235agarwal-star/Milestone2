@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "public": true,
+  "name": "groww-mf-assistant-ui",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "src/phase5_api_ui/static/$1" }
+  ]
+}

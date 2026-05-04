@@ -226,7 +226,12 @@
             chatWindow.appendChild(loading);
 
             try {
-                const response = await fetch('/chat', {
+                // Change this to your Render URL after deployment
+                const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+                                ? '' 
+                                : 'https://groww-mf-assistant.onrender.com';
+
+                const response = await fetch(`${API_URL}/chat`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: msg, thread_id: currentThreadId })
