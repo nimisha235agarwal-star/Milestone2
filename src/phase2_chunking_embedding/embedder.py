@@ -131,6 +131,13 @@ def process_and_embed(raw_html_dir, chroma_db_dir):
         print(f"  -> Upserting fresh chunks to ChromaDB...")
         vectorstore.add_documents(documents=doc_chunks)
         
+        # Cleanup local file to keep ONLY the latest data
+        try:
+            os.remove(filepath)
+            print(f"  -> Successfully processed and removed: {os.path.basename(filepath)}")
+        except Exception as e:
+            print(f"  -> Warning: Could not remove file {filepath}: {e}")
+        
     print(f"\n[{datetime.now().isoformat()}] Chunking and Embedding pipeline completed successfully.")
 
 if __name__ == "__main__":
