@@ -3,7 +3,7 @@ import glob
 from datetime import datetime
 from langchain_text_splitters import HTMLHeaderTextSplitter, RecursiveCharacterTextSplitter
 from bs4 import BeautifulSoup
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceInferenceAPIEmbeddings
 from langchain_community.vectorstores import Chroma
 from dotenv import load_dotenv
 
@@ -35,9 +35,18 @@ def get_metadata_from_filename(filename):
     return source_url, fund_slug, timestamp
 
 def process_and_embed(raw_html_dir, chroma_db_dir):
-    print(f"[{datetime.now().isoformat()}] Initializing Embedding Model (BAAI/bge-small-en-v1.5)...")
-    # Using a fast, local embedding model to avoid API costs during architecture setup
-    embedding_model = HuggingFaceEmbeddings(model_name="BAAI/bge-small-en-v1.5")
+    print(f"[{datetime.now().isoformat()}] Initializing Serverless Embedding Model (BAAI/bge-small-en-v1.5)...")
+    
+    # Using Serverless Inference API to save memory and CPU on Render
+    hf_token = os.environ.get("HUGGINGFACEHUB_API_TOKEN")
+    if not hf_token:
+        print("❌ ERROR: HUGGINGFACEHUB_API_TOKEN not found in environment variables.")
+        return
+
+    embedding_model = HuggingFaceInferenceAPIEmbeddings(
+        api_key=hf_token,
+        model_name="BAAI/bge-small-en-v1.5"
+    )
     
     print(f"[{datetime.now().isoformat()}] Connecting to Chroma Cloud...")
     import chromadb

@@ -1,11 +1,14 @@
 import os
 import uuid
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from src.phase3_retrieval_guardrails.rag_pipeline import MutualFundRAG
+
+load_dotenv()
 
 app = FastAPI(title="Groww Mutual Fund FAQ Assistant")
 
@@ -52,16 +55,9 @@ async def chat_endpoint(request: ChatRequest):
         print(f"Error in chat [Thread {thread_id}]: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
-
-@app.get("/", response_class=HTMLResponse)
-async def get_index():
-    with open("public/index.html", "r") as f:
-        return f.read()
-
-# Serve static files (CSS/JS)
-app.mount("/static", StaticFiles(directory="public"), name="static")
+# Serve static files from 'public' at the root
+# This ensures that index.css, images, etc. are found correctly
+app.mount("/", StaticFiles(directory="public", html=True), name="static")
 
 if __name__ == "__main__":
     import uvicorn

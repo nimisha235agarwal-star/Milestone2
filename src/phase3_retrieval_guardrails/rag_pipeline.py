@@ -45,10 +45,18 @@ def is_advisory_query(query: str) -> bool:
 # ──────────────────────────────────────────────
 class MutualFundRAG:
     def __init__(self):
-        print(f"[{datetime.now().isoformat()}] Initializing RAG Pipeline...")
-
-        # ── Embedding Model (same as ingestion) ──
-        self.embedding_model = HuggingFaceEmbeddings(model_name="BAAI/bge-small-en-v1.5")
+        print(f"[{datetime.now().isoformat()}] Initializing MutualFundRAG...")
+        
+        # ── Embedding Model (Serverless) ──
+        from langchain_huggingface import HuggingFaceInferenceAPIEmbeddings
+        hf_token = os.environ.get("HUGGINGFACEHUB_API_TOKEN")
+        if not hf_token:
+            print("❌ WARNING: HUGGINGFACEHUB_API_TOKEN missing. Embedding will fail.")
+            
+        self.embedding_model = HuggingFaceInferenceAPIEmbeddings(
+            api_key=hf_token,
+            model_name="BAAI/bge-small-en-v1.5"
+        )
 
         # ── Chroma Cloud Connection ──
         import chromadb
