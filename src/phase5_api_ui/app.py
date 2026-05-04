@@ -53,8 +53,13 @@ async def chat_endpoint(request: ChatRequest):
     thread_id = request.thread_id or str(uuid.uuid4())
     
     try:
+        if rag is None:
+            return ChatResponse(
+                reply="I'm having trouble connecting to my database. Please ensure API keys are configured in the Render dashboard.", 
+                thread_id=thread_id
+            )
+            
         # Run the synchronous RAG pipeline in a separate thread to avoid blocking the event loop.
-        # Pass the thread_id to enable conversational memory for that specific session.
         answer = await anyio.to_thread.run_sync(rag.answer_query, request.message, thread_id)
         return ChatResponse(reply=answer, thread_id=thread_id)
     except Exception as e:
